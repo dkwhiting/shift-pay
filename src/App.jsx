@@ -4,42 +4,18 @@ import ShiftRows from './ShiftRows'
 
 function App() {
   const [weekCount, setWeekCount] = useState([1])
-  const [shiftLength, setShiftLength] = useState(12.5)
-  const [basePay, setBasePay] = useState(37.41)
-  const [weekdayEveDiff, setWeekdayEveDiff] = useState(3.5)
-  const [weekdayNightDiff, setWeekdayNightDiff] = useState(5.4)
-  const [weekendDayDiff, setWeekendDayDiff] = useState(4.75)
-  const [weekendEveDiff, setWeekendEveDiff] = useState(6.25)
-  const [weekendNightDiff, setWeekendNightDiff] = useState(7.25)
-  const [differentials, setDifferentials] = useState({
-    basePay: basePay,
-    shiftLength: shiftLength,
-    WDE: weekdayEveDiff,
-    WDN: weekdayNightDiff,
-    WED: weekendDayDiff,
-    WEE: weekendEveDiff,
-    WEN: weekendNightDiff
+  const [payInfo, setPayInfo] = useState({
+    basePay: 38.9,
+    overtimeRate: .5,
+    shiftLength: 12.5,
+    differentials: {
+      WDE: 3.5,
+      WDN: 5.4,
+      WED: 4.75,
+      WEE: 6.25,
+      WEN: 7.25
+    }
   })
-
-  useEffect(()=>{
-    setDifferentials({
-      basePay: basePay,
-      shiftLength: shiftLength,
-      WDE: weekdayEveDiff,
-      WDN: weekdayNightDiff,
-      WED: weekendDayDiff,
-      WEE: weekendEveDiff,
-      WEN: weekendNightDiff
-    })
-  }, [
-    basePay, 
-    shiftLength,
-    weekdayEveDiff, 
-    weekdayNightDiff, 
-    weekendDayDiff, 
-    weekendEveDiff, 
-    weekendNightDiff
-  ])
 
   return (
       <div id="selector-box">
@@ -47,19 +23,21 @@ function App() {
           <thead>
             <tr>
               <th></th>
-              <th>Sunday</th>
-              <th>Monday</th>
-              <th>Tuesday</th>
-              <th>Wednesday</th>
-              <th>Thursday</th>
-              <th>Friday</th>
-              <th>Saturday</th>
+              <th>Sun</th>
+              <th>Mon</th>
+              <th>Tue</th>
+              <th>Wed</th>
+              <th>Thu</th>
+              <th>Fri</th>
+              <th>Sat</th>
             </tr>
           </thead>
           {weekCount.map((week) => (
-            <ShiftRows key={week} differentials={differentials} />
+            <ShiftRows key={week} payInfo={payInfo} />
           ))}
         </table>
+        <button onClick={()=>setWeekCount(weekCount => [...weekCount, weekCount.length + 1])}>+</button>
+        <button onClick={()=>setWeekCount(weekCount.filter(key => key !== weekCount.length))}>-</button>
       </div>
   )
 }

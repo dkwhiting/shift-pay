@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { calcShiftPay } from './utils/calcs'
 
-const Checkbox = ({shift, day, differentials, checkedDays, checkedNights, setCheckedDays, setCheckedNights}) => {
+const Checkbox = ({shift, day, setCheckedDays, setCheckedNights}) => {
   const [checked, setChecked] = useState(false)
 
   const handleChange = () => {

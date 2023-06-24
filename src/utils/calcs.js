@@ -1,21 +1,31 @@
-export const calcShiftPay = (differentials, shift, day) => {
-  let sum = differentials?.shiftLength * differentials.basePay
+export const calcShiftPay = (payInfo, shift, day) => {
+  
+  let sum = payInfo.shiftLength * payInfo.basePay
   if (shift === 'day') {
     if (day === 'sunday' || day === 'saturday'){
-      sum += (4.5 * differentials.WEE)
+      sum += (4.5 * payInfo.differentials.WEE)
     } else {
-      sum += (4.5 * differentials.WDE)
+      sum += (4.5 * payInfo.differentials.WDE)
     }
   } else {
     if (day === 'sunday'){
-      sum += (4.5 * differentials.WEE) + (8 * differentials.WDN)
+      sum += (4.5 * payInfo.differentials.WEE) + (8 * payInfo.differentials.WDN)
     } else if (day === 'friday'){
-      sum += (4.5 * differentials.WDE) + (8 * differentials.WEN)
+      sum += (4.5 * payInfo.differentials.WDE) + (8 * payInfo.differentials.WEN)
     } else if (day === 'saturday'){
-      sum += (4.5 * differentials.WEE) + (8 * differentials.WEN)
+      sum += (4.5 * payInfo.differentials.WEE) + (8 * payInfo.differentials.WEN)
     } else {
-      sum += (4.5 * differentials.WDE) + (8 * differentials.WDN)
+      sum += (4.5 * payInfo.differentials.WDE) + (8 * payInfo.differentials.WDN)
     }
   }
   return sum.toFixed(2)
+}
+
+export const calcOvertimePay = (payInfo, numberOfShifts) => {
+  const totalHours = payInfo.shiftLength * numberOfShifts
+  if (totalHours > 40) {
+    const sum = (totalHours - 40) * (payInfo.overtimeRate * payInfo.basePay)
+    return sum
+  }
+  return 0 
 }

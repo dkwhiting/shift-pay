@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import Checkbox from './Checkbox'
-import { calcShiftPay } from './utils/calcs'
+import { calcOvertimePay, calcShiftPay } from './utils/calcs'
 
-const ShiftRows = ({differentials}) => {
+const ShiftRows = ({payInfo}) => {
   const [checkedDays, setCheckedDays] = useState([])
   const [checkedNights, setCheckedNights] = useState([])
   const [dayTotal, setDayTotal] = useState(0)
@@ -10,19 +10,22 @@ const ShiftRows = ({differentials}) => {
   const [grandTotal, setGrandTotal] = useState(0)
 
   useEffect(()=>{
-    const daySum = checkedDays.reduce((accumulator, currentValue) => {
-      return +accumulator + +calcShiftPay(differentials, 'day', currentValue)
+    const baseSum = checkedDays.reduce((accumulator, currentValue) => {
+      return +accumulator + +calcShiftPay(payInfo, 'day', currentValue)
     }, 0)
-    setDayTotal(daySum.toFixed(2))
-  }, [checkedDays, differentials])
+    const overtimeSum = calcOvertimePay(payInfo, checkedDays.length)
+    setDayTotal(baseSum.toFixed(2))
+  }, [checkedDays, payInfo])
 
   useEffect(()=>{
-    const nightSum = checkedNights.reduce((accumulator, currentValue) => {
-      return +accumulator + +calcShiftPay(differentials, 'night', currentValue)
+    const baseSum = checkedNights.reduce((accumulator, currentValue) => {
+      return +accumulator + +calcShiftPay(payInfo, 'night', currentValue)
     }, 0)
-    setNightTotal(nightSum.toFixed(2))
+    const overtimeSum = calcOvertimePay(payInfo, checkedNights.length)
+    setNightTotal((baseSum+overtimeSum).toFixed(2))
+    
 
-  }, [checkedNights, differentials])
+  }, [checkedNights, payInfo])
 
   return (
     <>
