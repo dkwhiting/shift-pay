@@ -13,7 +13,7 @@ const ShiftRows = ({payInfo}) => {
     const baseSum = checkedDays.reduce((accumulator, currentValue) => {
       return +accumulator + +calcShiftPay(payInfo, 'day', currentValue)
     }, 0)
-    const overtimeSum = calcOvertimePay(payInfo, checkedDays.length)
+    const overtimeSum = calcOvertimePay(payInfo, checkedDays.length, checkedNights.length)
     setDayTotal(baseSum.toFixed(2))
   }, [checkedDays, payInfo])
 
@@ -21,7 +21,7 @@ const ShiftRows = ({payInfo}) => {
     const baseSum = checkedNights.reduce((accumulator, currentValue) => {
       return +accumulator + +calcShiftPay(payInfo, 'night', currentValue)
     }, 0)
-    const overtimeSum = calcOvertimePay(payInfo, checkedNights.length)
+    const overtimeSum = calcOvertimePay(payInfo, checkedDays.length, checkedNights.length)
     setNightTotal((baseSum+overtimeSum).toFixed(2))
     
 

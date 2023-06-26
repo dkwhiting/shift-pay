@@ -21,10 +21,11 @@ export const calcShiftPay = (payInfo, shift, day) => {
   return sum.toFixed(2)
 }
 
-export const calcOvertimePay = (payInfo, numberOfShifts) => {
+export const calcOvertimePay = (payInfo, dayShifts, nightShifts) => {
+  const numberOfShifts = dayShifts + nightShifts
   const totalHours = payInfo.shiftLength * numberOfShifts
   if (totalHours > 40) {
-    const sum = (totalHours - 40) * (payInfo.overtimeRate * payInfo.basePay)
+    const sum = (totalHours - 40) * ((payInfo.overtimeRate - 1) * payInfo.basePay)
     return sum
   }
   return 0 

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import ShiftRows from './ShiftRows'
+import PayForm from './PayForm'
 
 function App() {
   const [weekCount, setWeekCount] = useState([1])
   const [payInfo, setPayInfo] = useState({
     basePay: 38.9,
-    overtimeRate: .5,
+    overtimeRate: 1.5,
     shiftLength: 12.5,
     differentials: {
       WDE: 3.5,
@@ -19,6 +20,7 @@ function App() {
 
   return (
       <div id="selector-box">
+        <PayForm payInfo={payInfo} setPayInfo={setPayInfo}/>
         <table>
           <thead>
             <tr>
