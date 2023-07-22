@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Checkbox from './Checkbox'
 import { calcOvertimePay, calcShiftPay } from './utils/calcs'
 
-const ShiftRows = ({payInfo}) => {
+const ShiftRows = ({payInfo, weekCount}) => {
   const [checkedDays, setCheckedDays] = useState([])
   const [checkedNights, setCheckedNights] = useState([])
   const [dayTotal, setDayTotal] = useState(0)
@@ -24,36 +24,25 @@ const ShiftRows = ({payInfo}) => {
     const overtimeSum = calcOvertimePay(payInfo, checkedDays.length, checkedNights.length)
     setNightTotal((baseSum+overtimeSum).toFixed(2))
     
-
   }, [checkedNights, payInfo])
+
+  useEffect(()=>{
+    setGrandTotal((+dayTotal + +nightTotal).toFixed(2))
+  }, [dayTotal, nightTotal])
+
+  const daysList = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
 
   return (
     <>
       <tbody>
         <tr>
-          <td>Day</td>
-          <td><Checkbox shift="day" day="sunday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="day" day="monday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="day" day="tuesday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="day" day="wednesday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="day" day="thursday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="day" day="friday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="day" day="saturday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td>${dayTotal}</td>
+          <td>Week {weekCount}</td>
+          {daysList.map((day, i) => {
+            return <td key={`day-${i}`}><Checkbox shift="day" day={day} checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
+          })}
+         <td>${grandTotal}</td>
         </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td>Night</td>
-          <td><Checkbox shift="night" day="sunday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="night" day="monday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="night" day="tuesday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="night" day="wednesday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="night" day="thursday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="night" day="friday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td><Checkbox shift="night" day="saturday" checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
-          <td>${nightTotal}</td>
-        </tr>
+
       </tbody>
    </>
   )

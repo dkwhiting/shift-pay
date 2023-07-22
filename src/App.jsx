@@ -32,10 +32,11 @@ function App() {
               <th>Thu</th>
               <th>Fri</th>
               <th>Sat</th>
+              <th>Gross Pay</th>
             </tr>
           </thead>
           {weekCount.map((week) => (
-            <ShiftRows key={week} payInfo={payInfo} />
+            <ShiftRows key={week} weekCount={week} payInfo={payInfo} />
           ))}
         </table>
         <button onClick={()=>setWeekCount(weekCount => [...weekCount, weekCount.length + 1])}>+</button>

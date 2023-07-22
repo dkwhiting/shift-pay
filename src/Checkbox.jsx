@@ -1,35 +1,64 @@
 import React, {useEffect, useState} from 'react'
 import { calcShiftPay } from './utils/calcs'
+import { Icon } from '@iconify/react'
 
-const Checkbox = ({shift, day, setCheckedDays, setCheckedNights}) => {
-  const [checked, setChecked] = useState(false)
+const Checkbox = ({day, checkedDays, checkedNights, setCheckedDays, setCheckedNights}) => {
+  const [shift, setShift] = useState(0)
 
   const handleChange = () => {
-    setChecked(!checked)
+    if (shift === 2){
+      setShift(0)
+    } else {
+      setShift(shift + 1)
     }
+    console.log(shift)
+  }
   
   useEffect(()=>{
-    if (checked) {
-      if (shift === 'day'){
-        setCheckedDays(checkedDays => [...checkedDays, day])
-      } else {
-        setCheckedNights(checkedNights => [...checkedNights, day])
-      }
-    } else {
-      if (shift === 'day'){
-        setCheckedDays(checkedDays=> checkedDays.filter(key => {
-          return key !== day
-        }));
-      } else {
-        setCheckedNights(checkedNights => checkedNights.filter(key => {
-          return key !== day
-        }));
-      }
+    if (shift === 0) {
+      setCheckedDays(checkedDays=> checkedDays.filter(key => {
+        return key !== day
+      }));
+      setCheckedNights(checkedNights => checkedNights.filter(key => {
+        return key !== day
+      }));
+    } else if (shift === 1) {
+      setCheckedDays(checkedDays => [...checkedDays, day])
+      setCheckedNights(checkedNights => checkedNights.filter(key => {
+        return key !== day
+      }));
+    } else if (shift === 2) {
+      setCheckedNights(checkedNights => [...checkedNights, day])
+      setCheckedDays(checkedDays=> checkedDays.filter(key => {
+        return key !== day
+      }));
     }
-  }, [checked])
+
+
+
+    // if (checked) {
+    //   if (shift === '1'){
+    //     setCheckedDays(checkedDays => [...checkedDays, day])
+    //   } else if (shift === '2') {
+    //     setCheckedNights(checkedNights => [...checkedNights, day])
+    //   }
+    // } else {
+    //   if (shift === '1'){
+    //     setCheckedDays(checkedDays=> checkedDays.filter(key => {
+    //       return key !== day
+    //     }));
+    //   } else if (shift === '2'){
+    //     setCheckedNights(checkedNights => checkedNights.filter(key => {
+    //       return key !== day
+    //     }));
+    //   }
+    // }
+  }, [shift])
 
   return (
-    <input type="checkbox" checked={checked} onChange={handleChange}/>
+    <div style={{width: '20px', height: '20px'}} onClick={handleChange}>
+      {shift === 1 ? <Icon icon='noto-v1:sun'/> : shift === 2 ? <Icon icon='ph:moon-fill'/> : null}
+    </div>
   )
 }
 
