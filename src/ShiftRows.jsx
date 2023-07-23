@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import Checkbox from './Checkbox'
 import { calcOvertimePay, calcShiftPay } from './utils/calcs'
+import { Icon } from '@iconify/react'
 
-const ShiftRows = ({payInfo, weekCount}) => {
+const ShiftRows = ({payInfo, weekCount, setWeekCount, week}) => {
   const [checkedDays, setCheckedDays] = useState([])
   const [checkedNights, setCheckedNights] = useState([])
   const [dayTotal, setDayTotal] = useState(0)
@@ -32,17 +33,37 @@ const ShiftRows = ({payInfo, weekCount}) => {
 
   const daysList = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
 
+  console.log(week, weekCount.length)
+
   return (
     <>
       <tbody>
         <tr>
-          <td>Week {weekCount}</td>
+          <td>Week {week}</td>
           {daysList.map((day, i) => {
-            return <td key={`day-${i}`}><Checkbox shift="day" day={day} checkedDays={checkedDays} setCheckedDays={setCheckedDays} checkedNights={checkedNights} setCheckedNights={setCheckedNights} /></td>
+            return <td className="checkbox-container" key={`day-${i}`}>
+                <Checkbox 
+                  shift="day" 
+                  day={day}
+                  week={week}
+                  checkedDays={checkedDays} 
+                  setCheckedDays={setCheckedDays} 
+                  checkedNights={checkedNights} 
+                  setCheckedNights={setCheckedNights} />
+              </td>
           })}
-         <td>${grandTotal}</td>
+          <td>${grandTotal}</td>
         </tr>
 
+          {week === weekCount.length && weekCount.length > 1 
+            ? <button className="trash-button" onClick={()=> {
+              if (weekCount.length > 1){
+                setWeekCount(weekCount.filter(key => key !== weekCount.length))
+              }
+              }}>
+                <Icon icon="iconamoon:trash-fill" />
+              </button>
+            : null }
       </tbody>
    </>
   )

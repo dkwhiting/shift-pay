@@ -1,17 +1,100 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 95%;
+  overflow-x: none;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
-#selector-box {
+#main-container {
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: space-between;
 }
 
-thead:nth-child(odd) {
+#form-container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+table {
+  margin-bottom: 20px;
+}
+
+table,
+td,
+td div
+ {
+  height: 100%;
+}
+
+thead {
   background-color: gray;
+}
+
+tbody {
+  position: relative;
+}
+
+tbody button {
+  background: none;
+  position: absolute;
+  bottom: 11px;
+  right: -40px;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  margin: 0;
+}
+
+tbody button * {
+  width: 100%;
+  height: 100%;
+}
+
+.add-week-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 20px;
+  background: none;
+  width: 150px;
+  padding: 0;
+  height: 50px;
+
+}
+
+.add-week-button svg {
+  width: 30px;
+  height: 30px;
+}
+
+tbody:nth-child(odd) {
+  background-color: rgb(90, 90, 90);
+}
+tbody:nth-child(even) {
+  background-color: rgb(68, 68, 68);
+}
+
+td {
+  padding: 4px;
+  height: 50px;
+  width: 50px;
+}
+
+tr:first-child {
+  height: 20px;
+}
+
+td:last-child,
+td:first-child,
+th:last-child,
+th:first-child {
+  width: 80px;
 }
 
 .form-section {
@@ -25,4 +108,35 @@ form {
   flex-direction: column;
   gap: 10px;
   padding: 20px 0;
+}
+
+form input {
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+
+
+.checkbox-container div {
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+tbody tr .checkbox-container:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+tbody tr .checkbox-container {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.checkbox-container div svg{
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: -3px;
 }

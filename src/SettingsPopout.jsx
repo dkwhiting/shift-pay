@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const PayForm = ({payInfo, setPayInfo}) => {
+const SettingsPopout = ({payInfo, setPayInfo}) => {
+  const [show, setShow] = useState(false)
+
   const handleChange = (e, ) => {
     console.log(e.target)
     setPayInfo({...payInfo, basePay: e.target.value})
@@ -41,4 +43,4 @@ const PayForm = ({payInfo, setPayInfo}) => {
   )
 }
 
-export default PayForm
+export default SettingsPopout

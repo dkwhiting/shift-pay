@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import ShiftRows from './ShiftRows'
-import PayForm from './PayForm'
+import { Icon } from '@iconify/react'
+import SettingsPopout from './SettingsPopout'
 
 function App() {
   const [weekCount, setWeekCount] = useState([1])
@@ -19,11 +20,14 @@ function App() {
   })
 
   return (
-      <div id="selector-box">
-        <PayForm payInfo={payInfo} setPayInfo={setPayInfo}/>
+      <div id="main-container">
+        <div id="settings-popout">
+          <SettingsPopout payInfo={payInfo} setPayInfo={setPayInfo}/>
+        </div>
+        <div id="form-container">
         <table>
           <thead>
-            <tr>
+            <tr className="header-row">
               <th></th>
               <th>Sun</th>
               <th>Mon</th>
@@ -36,11 +40,11 @@ function App() {
             </tr>
           </thead>
           {weekCount.map((week) => (
-            <ShiftRows key={week} weekCount={week} payInfo={payInfo} />
+            <ShiftRows key={week} weekCount={weekCount} setWeekCount={setWeekCount} week={week} payInfo={payInfo} />
           ))}
         </table>
-        <button onClick={()=>setWeekCount(weekCount => [...weekCount, weekCount.length + 1])}>+</button>
-        <button onClick={()=>setWeekCount(weekCount.filter(key => key !== weekCount.length))}>-</button>
+        <button className="add-week-button" onClick={()=>setWeekCount(weekCount => [...weekCount, weekCount.length + 1])}><Icon icon="gridicons:add" /> Add week</button>
+        </div>
       </div>
   )
 }
