@@ -7,7 +7,7 @@
 }
 
 #main-container {
-  width: 100%;
+  width: 90%;
   display: flex;
   gap: 20px;
   justify-content: space-between;
@@ -17,14 +17,16 @@
 #form-container {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
 }
 
 table {
   margin-bottom: 20px;
 }
 
-table,
+
+
+
 td,
 td div
  {
@@ -139,4 +141,10 @@ tbody tr .checkbox-container {
   height: 40px;
   padding: 0;
   margin: -3px;
+}
+
+@media (max-width: 860px){
+  #main-container {
+    flex-direction: column;
+  }
 }
