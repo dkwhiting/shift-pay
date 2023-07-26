@@ -6,6 +6,8 @@ import SettingsPopout from './SettingsPopout'
 
 function App() {
   const [weekCount, setWeekCount] = useState([1])
+  const [grandTotal, setGrandTotal] = useState(0)
+  const [updater, setUpdater] = useState(true)
   const [payInfo, setPayInfo] = useState({
     basePay: 38.9,
     overtimeRate: 1.5,
@@ -18,12 +20,25 @@ function App() {
       WEN: 7.25
     }
   })
+  
+  useEffect(()=>{
+    const allTotalBoxes = document.querySelectorAll('.weekly-total-box')
+    const totalsArr = []
+    Array.from(allTotalBoxes).map(box => totalsArr.push(+box.innerHTML.slice(1)))
+    if (totalsArr.length > 1){
+      const total = totalsArr.reduce((acc, currentValue) => acc + currentValue, 0)
+      setGrandTotal('$' + total.toFixed(2))
+    } else {
+      setGrandTotal('$' + totalsArr[0].toFixed(2))
+    }
+  }, [weekCount, updater])
 
   return (
       <div id="main-container">
         <div id="settings-popout">
           <SettingsPopout payInfo={payInfo} setPayInfo={setPayInfo}/>
         </div>
+
         <div id="form-container">
         <table>
           <thead>
@@ -40,10 +55,13 @@ function App() {
             </tr>
           </thead>
           {weekCount.map((week) => (
-            <ShiftRows key={week} weekCount={weekCount} setWeekCount={setWeekCount} week={week} payInfo={payInfo} />
+            <ShiftRows key={week} weekCount={weekCount} setWeekCount={setWeekCount} week={week} payInfo={payInfo} updater={updater} setUpdater={setUpdater} />
           ))}
         </table>
-        <button className="add-week-button" onClick={()=>setWeekCount(weekCount => [...weekCount, weekCount.length + 1])}><Icon icon="gridicons:add" /> Add week</button>
+        <div className="table-footer">
+          <button className="add-week-button" onClick={()=>setWeekCount(weekCount => [...weekCount, weekCount.length + 1])}><Icon icon="gridicons:add" /> Add week</button>
+          <div className="grand-total"><p>Total:   {grandTotal}</p></div>
+        </div>
         </div>
       </div>
   )

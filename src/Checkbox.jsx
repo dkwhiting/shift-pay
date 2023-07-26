@@ -11,7 +11,6 @@ const Checkbox = ({day, checkedDays, checkedNights, setCheckedDays, setCheckedNi
     } else {
       setShift(shift + 1)
     }
-    console.log(shift)
   }
   
   useEffect(()=>{

@@ -143,6 +143,11 @@ tbody tr .checkbox-container {
   margin: -3px;
 }
 
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 860px){
   #main-container {
     flex-direction: column;
