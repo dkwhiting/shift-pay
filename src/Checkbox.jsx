@@ -55,9 +55,11 @@ const Checkbox = ({day, checkedDays, checkedNights, setCheckedDays, setCheckedNi
   }, [shift])
 
   return (
-    <div className="shift-checkbox" onClick={handleChange}>
-      {shift === 1 ? <Icon icon='noto-v1:sun'/> : shift === 2 ? <Icon icon='ph:moon-fill'/> : null}
-    </div>
+    <td> 
+      <div className="shift-checkbox" onClick={handleChange}>
+       {shift === 1 ? <Icon icon='noto-v1:sun'/> : shift === 2 ? <Icon icon='ph:moon-fill'/> : null}
+      </div>
+    </td>
   )
 }
 

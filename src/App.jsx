@@ -38,32 +38,36 @@ function App() {
         <div id="settings-popout">
           <SettingsPopout payInfo={payInfo} setPayInfo={setPayInfo}/>
         </div>
-
-        <div id="form-container">
-        <table>
-          <thead>
-            <tr className="header-row">
-              <th></th>
-              <th>Sun</th>
-              <th>Mon</th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th>Thu</th>
-              <th>Fri</th>
-              <th>Sat</th>
-              <th>Gross Pay</th>
-            </tr>
-          </thead>
-          {weekCount.map((week) => (
-            <ShiftRows key={week} weekCount={weekCount} setWeekCount={setWeekCount} week={week} payInfo={payInfo} updater={updater} setUpdater={setUpdater} />
-          ))}
-        </table>
-        <div className="table-footer">
-          <button className="add-week-button" onClick={()=>setWeekCount(weekCount => [...weekCount, weekCount.length + 1])}><Icon icon="gridicons:add" /> Add week</button>
-          <div className="grand-total"><p>Total:   {grandTotal}</p></div>
+        <div className="right-container">
+          <div className="description">
+            <h1>ShiftPay</h1>
+          </div>
+          <div id="form-container">
+          <table>
+            <thead>
+              <tr className="header-row">
+                <th></th>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Gross Pay</th>
+              </tr>
+            </thead>
+            {weekCount.map((week) => (
+              <ShiftRows key={week} weekCount={weekCount} setWeekCount={setWeekCount} week={week} payInfo={payInfo} updater={updater} setUpdater={setUpdater} />
+            ))}
+          </table>
+          <div className="table-footer">
+            <button className="add-week-button" onClick={()=>setWeekCount(weekCount => [...weekCount, weekCount.length + 1])}><Icon icon="gridicons:add" /> Add week</button>
+            <div className="grand-total"><p>Total:   {grandTotal}</p></div>
+          </div>
+                </div>
         </div>
-        </div>
-      </div>
+    </div>
   )
 }
 

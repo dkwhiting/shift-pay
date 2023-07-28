@@ -39,18 +39,19 @@ const ShiftRows = ({payInfo, weekCount, setWeekCount, week, updater, setUpdater}
     <>
       <tbody>
         <tr>
-          <td>Week {week}</td>
+          <td className="week-number-box">Week {week}</td>
           {daysList.map((day, i) => {
-            return <td className="checkbox-container" key={`day-${i}`}>
-                <Checkbox 
-                  shift="day" 
-                  day={day}
-                  week={week}
-                  checkedDays={checkedDays} 
-                  setCheckedDays={setCheckedDays} 
-                  checkedNights={checkedNights} 
-                  setCheckedNights={setCheckedNights} />
-              </td>
+            return (
+            <Checkbox 
+              key={`day-${i}`}
+              shift="day" 
+              day={day}
+              week={week}
+              checkedDays={checkedDays} 
+              setCheckedDays={setCheckedDays} 
+              checkedNights={checkedNights} 
+              setCheckedNights={setCheckedNights} />
+              )
           })}
           <td className="weekly-total-box">${grandTotal}</td>
         </tr>

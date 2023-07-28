@@ -1,7 +1,8 @@
+import { Icon } from '@iconify/react'
 import React, { useState } from 'react'
 
 const SettingsPopout = ({payInfo, setPayInfo}) => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(true)
 
   const handleChange = (e, ) => {
     console.log(e.target)
@@ -9,9 +10,20 @@ const SettingsPopout = ({payInfo, setPayInfo}) => {
   }
 
   return (
-    <div>
-      <form>
-        <div className="form-section">
+    <div style={!show ? {width: 40} : null} id="settings-popout">
+      <div className="settings-button" onClick={() => setShow(!show)}>
+        <Icon className="gear-icon" icon="iconamoon:settings-fill" />
+        <Icon 
+        className="x-icon"
+         icon="oi:x" 
+         style={show 
+          ? {width: 15, height: 15, left: 28} 
+          : {width: 0, height: 0, bottom: 8}}
+         />
+      </div>
+      <form style={!show ? {left: -200} : null}>
+        <div 
+          className="form-section">
           <label htmlFor="base-pay">Base Pay</label>
           <input
             id="base-pay"
