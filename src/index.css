@@ -30,9 +30,9 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   overflow-x: none;
-  width: 100vw;
+  width: 100%;
   min-width: 320px;
   min-height: 100vh;
 }

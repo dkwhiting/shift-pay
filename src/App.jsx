@@ -35,9 +35,9 @@ function App() {
 
   return (
       <div id="main-container">
-        <div id="settings-popout">
+
           <SettingsPopout payInfo={payInfo} setPayInfo={setPayInfo}/>
-        </div>
+
         <div className="right-container">
           <div className="description">
             <h1>ShiftPay</h1>

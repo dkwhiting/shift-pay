@@ -10,7 +10,7 @@ const SettingsPopout = ({payInfo, setPayInfo}) => {
   }
 
   return (
-    <div style={!show ? {width: 40} : null} id="settings-popout">
+    <div style={!show ? {width: 40, marginRight: 0} : {width: 150}} id="settings-popout">
       <div className="settings-button" onClick={() => setShow(!show)}>
         <Icon className="gear-icon" icon="iconamoon:settings-fill" />
         <Icon 
@@ -21,7 +21,7 @@ const SettingsPopout = ({payInfo, setPayInfo}) => {
           : {width: 0, height: 0, bottom: 8}}
          />
       </div>
-      <form style={!show ? {left: -200} : null}>
+      <form style={!show ? {left: -300} : null}>
         <div 
           className="form-section">
           <label htmlFor="base-pay">Base Pay</label>
